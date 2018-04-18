@@ -1,0 +1,14 @@
+docker pull php:7.2-apache
+docker pull mysql:5.7
+
+// go to backend folder
+docker build . -t backend-mysql:0.1
+
+// go to frontend folder
+docker build . -t frontend-php:0.1
+
+Rodando o banco:
+docker run -d --rm --name backend -e MYSQL_DATABASE=demo -e MYSQL_ALLOW_EMPTY_PASSWORD=yes backend-mysql:0.1
+
+Rodando o Front:
+docker run -d --rm --name frontend -p 80:80 --link backend frontend-php:0.1
